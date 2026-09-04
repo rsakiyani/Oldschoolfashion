@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bosphorus & Co. | Istanbul to UK Fashion Catalog</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#faf7f5',
+                            100: '#f5efe9',
+                            200: '#ebdcd0',
+                            500: '#c29a77',
+                            700: '#8f6543',
+                            900: '#2b231d',
+                            emerald: '#0f382c'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #faf9f6;
+            color: #1f2937;
+            -webkit-tap-highlight-color: transparent;
+        }
+        h1, h2, h3, .font-display {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c29a77;
+            border-radius: 4px;
+        }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .badge-pulse::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: inherit;
+            border-radius: inherit;
+            animation: pulse-ring 1.8s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+            z-index: -1;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-brand-200 selection:text-brand-900">
+
+    <!-- Top Announcement Bar (Turkey to UK theme) -->
+    <div class="bg-brand-900 text-amber-50 text-xs px-4 py-2.5">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+            <div class="flex items-center gap-2 tracking-wide font-medium">
+                <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-800 text-emerald-100">ISTANBUL ✈ UK</span>
+                <span>Exclusive Turkish Apparel & Leathercraft • Direct to Your UK Doorstep</span>
+            </div>
+            <div class="flex items-center gap-4 text-[11px] text-brand-200">
+                <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i> No Customs Hassle</span>
+                <span class="hidden md:inline">•</span>
+                <span class="flex items-center gap-1"><i data-lucide="message-circle" class="w-3.5 h-3.5 text-green-400"></i> WhatsApp Orders Only</span>
+                <span class="hidden md:inline">•</span>
+                <span class="font-bold text-white">💷 GBP (£)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200 shadow-sm transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            <!-- Mobile Menu Toggle -->
+            <button onclick="toggleMobileNav()" class="p-2 -ml-2 text-stone-700 hover:text-black md:hidden" aria-label="Open menu">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+
+            <!-- Brand Logo -->
+            <div class="flex items-center gap-3">
+                <a href="#" class="group flex flex-col items-start">
+                    <span class="font-display text-2xl sm:text-3xl font-bold tracking-tight text-brand-900 group-hover:text-brand-700 transition">BOSPHORUS</span>
+                    <span class="text-[9px] tracking-[0.3em] uppercase -mt-1 font-semibold text-brand-500">London &bull; Istanbul</span>
+                </a>
+            </div>
+
+            <!-- Desktop Category Nav -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide text-stone-600">
+                <button onclick="filterCategory('All')" class="nav-link text-brand-900 font-semibold hover:text-brand-700 transition relative py-1" data-cat="All">ALL PIECES</button>
+                <button onclick="filterCategory('Clothes')" class="nav-link hover:text-brand-700 transition relative py-1" data-cat="Clothes">CLOTHES</button>
+                <button onclick="filterCategory('Bags')" class="nav-link hover:text-brand-700 transition relative py-1" data-cat="Bags">LEATHER BAGS</button>
+                <button onclick="filterCategory('Shoes')" class="nav-link hover:text-brand-700 transition relative py-1" data-cat="Shoes">FOOTWEAR</button>
+                <button onclick="openStoryModal()" class="text-amber-800 hover:text-amber-900 transition flex items-center gap-1">
+                    <span>Why Turkey?</span>
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                </button>
+            </nav>
+
+            <!-- Action Buttons: Admin, Search, Cart -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Search Box Button -->
+                <button onclick="toggleSearchModal()" class="p-2 text-stone-600 hover:text-black hover:bg-stone-100 rounded-full transition" title="Search items">
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                </button>
+
+                <!-- Admin Dashboard Toggle Button -->
+                <button onclick="openAdminModal()" class="flex items-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold rounded-full border border-stone-300 transition shadow-sm" title="Merchant Management">
+                    <i data-lucide="sliders" class="w-3.5 h-3.5 text-brand-700"></i>
+                    <span class="hidden sm:inline">Seller Portal</span>
+                    <span class="sm:hidden">Admin</span>
+                </button>
+
+                <!-- WhatsApp Quick Direct Link -->
+                <a id="headerWaLink" href="https://wa.me/447700900077?text=Hello%20Bosphorus%20London,%20I'm%20browsing%20your%20catalog%20and%20have%20an%20inquiry." target="_blank" class="hidden lg:flex items-center gap-1.5 px-3 py-1.5 bg-green-50 text-green-700 hover:bg-green-100 rounded-full text-xs font-medium border border-green-200 transition">
+                    <i data-lucide="message-circle" class="w-4 h-4 text-green-600"></i>
+                    <span>Chat With Stylist</span>
+                </a>
+
+                <!-- Cart Button -->
+                <button onclick="openCartDrawer()" class="relative p-2.5 bg-brand-900 text-white rounded-full hover:bg-black transition shadow-md flex items-center justify-center">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    <span id="cartCountBadge" class="absolute -top-1 -right-1 bg-amber-500 text-brand-900 font-bold text-[10px] w-5 h-5 rounded-full flex items-center justify-center ring-2 ring-white">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Slide-out Nav Drawer -->
+    <div id="mobileNavDrawer" class="fixed inset-0 z-50 transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+        <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="toggleMobileNav()"></div>
+        <div class="relative w-4/5 max-w-xs bg-white h-full shadow-2xl flex flex-col justify-between p-6">
+            <div>
+                <div class="flex items-center justify-between pb-6 border-b border-stone-200">
+                    <span class="font-display font-bold text-xl tracking-tight text-brand-900">BOSPHORUS</span>
+                    <button onclick="toggleMobileNav()" class="p-1 text-stone-500 hover:text-black">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                <div class="py-6 space-y-4 font-medium text-stone-800">
+                    <button onclick="filterCategory('All'); toggleMobileNav();" class="block w-full text-left py-2 hover:text-brand-700">All Collections</button>
+                    <button onclick="filterCategory('Clothes'); toggleMobileNav();" class="block w-full text-left py-2 hover:text-brand-700">Turkish Cotton & Dresses</button>
+                    <button onclick="filterCategory('Bags'); toggleMobileNav();" class="block w-full text-left py-2 hover:text-brand-700">Grand Bazaar Leather Bags</button>
+                    <button onclick="filterCategory('Shoes'); toggleMobileNav();" class="block w-full text-left py-2 hover:text-brand-700">Handcrafted Shoes</button>
+                    <button onclick="openStoryModal(); toggleMobileNav();" class="block w-full text-left py-2 text-brand-700 font-semibold">How TR ➔ UK Delivery Works</button>
+                </div>
+            </div>
+            <div class="pt-6 border-t border-stone-200 space-y-3">
+                <button onclick="openAdminModal(); toggleMobileNav();" class="w-full flex items-center justify-center gap-2 py-2.5 bg-stone-100 rounded-lg text-sm font-semibold text-stone-800">
+                    <i data-lucide="edit-3" class="w-4 h-4"></i> Manage Catalog (Admin)
+                </button>
+                <div class="text-xs text-stone-500 text-center">
+                    Dispatched from Istanbul &bull; Arrives anywhere in UK in 3-5 working days.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Promotional Banner -->
+    <section class="relative bg-gradient-to-r from-stone-900 via-brand-900 to-stone-950 text-white overflow-hidden py-12 lg:py-16">
+        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#c29a77_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                <div class="md:col-span-7 space-y-5 text-center md:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs text-brand-200">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>Direct Sourcing • Nişantaşı & Grand Bazaar Quality</span>
+                    </div>
+                    <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight text-white">
+                        Istanbul’s Finest Fashion, <br class="hidden sm:inline">
+                        <span class="italic font-normal text-amber-300">Delivered Across the United Kingdom.</span>
+                    </h1>
+                    <p class="text-stone-300 text-sm sm:text-base max-w-xl font-light">
+                        Premium linen apparel, genuine Turkish leather bags, and artisanal footwear. Order via WhatsApp with custom sizing, zero prepayment anxiety, and fast DHL/Royal Mail tracked shipping.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-3 justify-center md:justify-start">
+                        <a href="#catalog" class="px-6 py-3 bg-white text-stone-900 hover:bg-amber-100 font-semibold text-sm rounded-full transition shadow-lg flex items-center gap-2">
+                            <span>Browse UK Catalog</span>
+                            <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                        </a>
+                        <button onclick="openAdminModal()" class="px-5 py-3 bg-white/10 hover:bg-white/20 text-stone-200 border border-white/20 text-sm font-medium rounded-full transition flex items-center gap-2">
+                            <i data-lucide="plus-circle" class="w-4 h-4 text-amber-300"></i>
+                            <span>Add / Edit Your Items</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Feature highlights card -->
+                <div class="md:col-span-5">
+                    <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-5 sm:p-6 text-stone-200 space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div class="p-2 rounded-xl bg-amber-400/20 text-amber-300 shrink-0">
+                                <i data-lucide="package-check" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-white">How to Order?</h4>
+                                <p class="text-xs text-stone-300 mt-0.5">Pick your items, tap "Order via WhatsApp", and send your pre-filled inquiry straight to our UK dispatch team.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="p-2 rounded-xl bg-emerald-400/20 text-emerald-300 shrink-0">
+                                <i data-lucide="truck" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-white">Door-to-Door UK Shipping</h4>
+                                <p class="text-xs text-stone-300 mt-0.5">Weekly consolidated air cargo to London Heathrow, then delivered via Royal Mail Tracked 24/48.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="p-2 rounded-xl bg-stone-400/20 text-amber-200 shrink-0">
+                                <i data-lucide="gem" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-white">Authentic Turkish Manufacturing</h4>
+                                <p class="text-xs text-stone-300 mt-0.5">High GSM Aegean cotton, supple calfskin leather, and European-standard stitching.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Filters & Search Bar Section -->
+    <section id="catalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-b border-stone-200 pb-5">
+            <!-- Filter Pills -->
+            <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none" id="categoryFilterContainer">
+                <button onclick="filterCategory('All')" class="filter-pill active px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition bg-brand-900 text-white" data-cat="All">
+                    All Items (<span id="count-all">0</span>)
+                </button>
+                <button onclick="filterCategory('Clothes')" class="filter-pill px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition bg-stone-100 text-stone-700 hover:bg-stone-200" data-cat="Clothes">
+                    👗 Clothes (<span id="count-clothes">0</span>)
+                </button>
+                <button onclick="filterCategory('Bags')" class="filter-pill px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition bg-stone-100 text-stone-700 hover:bg-stone-200" data-cat="Bags">
+                    👜 Handbags (<span id="count-bags">0</span>)
+                </button>
+                <button onclick="filterCategory('Shoes')" class="filter-pill px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition bg-stone-100 text-stone-700 hover:bg-stone-200" data-cat="Shoes">
+                    👠 Shoes (<span id="count-shoes">0</span>)
+                </button>
+            </div>
+
+            <!-- Sort & Quick Search -->
+            <div class="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+                <div class="relative flex-1 sm:w-64">
+                    <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Search Istanbul collection..." class="w-full text-xs pl-8 pr-3 py-2 bg-white rounded-full border border-stone-300 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                    <i data-lucide="search" class="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-1/2 -translate-y-1/2"></i>
+                </div>
+                <select id="sortSelect" onchange="handleSort(this.value)" class="text-xs py-2 px-3 bg-white rounded-full border border-stone-300 text-stone-700 focus:outline-none focus:ring-1 focus:ring-brand-500">
+                    <option value="featured">Featured</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="name">Name: A to Z</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Grid Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow">
+        <!-- Live status bar -->
+        <div class="flex items-center justify-between text-xs text-stone-500 mb-6">
+            <span id="activeFilterLabel">Showing all products</span>
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                <span>WhatsApp orders open for today</span>
+            </div>
+        </div>
+
+        <!-- Product Cards Grid -->
+        <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+            <!-- Cards dynamically rendered by JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-20 bg-white rounded-2xl border border-dashed border-stone-300 mt-4 p-8">
+            <div class="w-16 h-16 mx-auto mb-4 bg-stone-100 rounded-full flex items-center justify-center text-stone-400">
+                <i data-lucide="search-x" class="w-8 h-8"></i>
+            </div>
+            <h3 class="font-display text-lg font-bold text-stone-800 mb-1">No items match your filter</h3>
+            <p class="text-xs text-stone-500 mb-5 max-w-sm mx-auto">Try clearing your search keyword or change categories. You can also add new products via the Seller Portal.</p>
+            <div class="flex justify-center gap-3">
+                <button onclick="resetFilters()" class="px-4 py-2 bg-stone-800 text-white rounded-full text-xs font-semibold hover:bg-black transition">Reset Filters</button>
+                <button onclick="openAdminModal()" class="px-4 py-2 bg-brand-500 text-white rounded-full text-xs font-semibold hover:bg-brand-700 transition">+ Add Product</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-300 pt-14 pb-10 border-t border-stone-800 mt-16 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-stone-800">
+                <!-- Brand Info -->
+                <div class="space-y-3">
+                    <span class="font-display text-2xl font-bold tracking-tight text-white">BOSPHORUS</span>
+                    <p class="text-stone-400 text-xs leading-relaxed">
+                        Curated Turkish boutique fashion delivered to London, Manchester, Birmingham, Edinburgh, and throughout the UK. Direct communication via WhatsApp for custom fits and fast delivery.
+                    </p>
+                    <div class="flex items-center gap-3 pt-2 text-stone-400">
+                        <span class="text-xs font-medium">🇹🇷 Made in Turkey</span>
+                        <span>•</span>
+                        <span class="text-xs font-medium">🇬🇧 Shipped to UK</span>
+                    </div>
+                </div>
+
+                <!-- Quick Categories -->
+                <div>
+                    <h4 class="text-white font-semibold mb-3 tracking-wider uppercase text-[11px]">Boutique Categories</h4>
+                    <ul class="space-y-2 text-stone-400">
+                        <li><button onclick="filterCategory('Clothes'); scrollToCatalog();" class="hover:text-white transition">Aegean Cotton Dresses & Tops</button></li>
+                        <li><button onclick="filterCategory('Bags'); scrollToCatalog();" class="hover:text-white transition">Handmade Turkish Leather Bags</button></li>
+                        <li><button onclick="filterCategory('Shoes'); scrollToCatalog();" class="hover:text-white transition">Artisanal Shoes & Loafers</button></li>
+                        <li><button onclick="filterCategory('All'); scrollToCatalog();" class="hover:text-white transition">New Arrivals This Week</button></li>
+                    </ul>
+                </div>
+
+                <!-- Ordering & Support -->
+                <div>
+                    <h4 class="text-white font-semibold mb-3 tracking-wider uppercase text-[11px]">Order & Delivery Info</h4>
+                    <ul class="space-y-2 text-stone-400">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> No upfront payment on site</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> WhatsApp Concierge checkout</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> 3-5 Working Days Tracked UK Delivery</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Easy UK returns handled locally</li>
+                    </ul>
+                </div>
+
+                <!-- Seller GitHub Management Info -->
+                <div class="bg-stone-800/80 p-4 rounded-xl border border-stone-700/60 space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="font-semibold text-white">Store Owner Tools</span>
+                        <span class="px-2 py-0.5 text-[9px] bg-emerald-500/20 text-emerald-300 rounded font-mono">FREE HOSTING READY</span>
+                    </div>
+                    <p class="text-[11px] text-stone-300 leading-normal">
+                        Hosted for free on <strong>GitHub Pages</strong>. You can add new products daily, modify prices in £, and backup your catalog directly to your device!
+                    </p>
+                    <button onclick="openAdminModal()" class="w-full py-2 bg-brand-500 hover:bg-brand-700 text-white rounded-lg font-semibold text-xs transition flex items-center justify-center gap-1.5 shadow">
+                        <i data-lucide="settings" class="w-3.5 h-3.5"></i>
+                        <span>Open Admin Dashboard</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-stone-500 text-[11px] gap-3">
+                <p>&copy; <span id="currentYear"></span> Bosphorus & Co. Designed for UK & European customers. All rights reserved.</p>
+                <div class="flex items-center gap-4">
+                    <span class="hover:text-stone-300 cursor-pointer" onclick="openStoryModal()">About Us</span>
+                    <span class="hover:text-stone-300 cursor-pointer" onclick="openAdminModal()">Manage Products</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= MODALS & DRAWERS ================= -->
+
+    <!-- 1. CART & DIRECT WHATSAPP CHECKOUT DRAWER -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        <div class="absolute inset-0 bg-stone-900/60 backdrop-blur-sm transition-opacity" onclick="closeCartDrawer()"></div>
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+                <!-- Cart Header -->
+                <div class="px-5 py-4 border-b border-stone-200 flex items-center justify-between bg-stone-50">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-5 h-5 text-brand-900"></i>
+                        <h2 class="text-base font-bold text-stone-900">Your Inquiry Bag (<span id="cartDrawerCount">0</span>)</h2>
+                    </div>
+                    <button onclick="closeCartDrawer()" class="p-1.5 text-stone-400 hover:text-stone-700 rounded-full hover:bg-stone-200">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <!-- Cart Items List -->
+                <div class="flex-1 overflow-y-auto p-5 space-y-4" id="cartItemsList">
+                    <!-- Populated by JS -->
+                </div>
+
+                <!-- Cart Footer & WhatsApp Checkout Button -->
+                <div class="p-5 border-t border-stone-200 bg-stone-50 space-y-3">
+                    <!-- Customer UK Details (Optional for faster ordering) -->
+                    <div class="space-y-2 bg-white p-3 rounded-xl border border-stone-200 text-xs">
+                        <label class="block font-semibold text-stone-700">Quick Delivery Info (Optional):</label>
+                        <input type="text" id="custName" placeholder="Your Name" class="w-full p-2 border border-stone-300 rounded text-xs focus:ring-1 focus:ring-brand-500">
+                        <input type="text" id="custPostcode" placeholder="UK City / Postcode (e.g. SW1A 1AA, London)" class="w-full p-2 border border-stone-300 rounded text-xs focus:ring-1 focus:ring-brand-500">
+                    </div>
+
+                    <!-- Price summary -->
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-stone-600">Subtotal</span>
+                        <span id="cartSubtotal" class="font-bold text-base text-stone-900">£0.00</span>
+                    </div>
+                    <div class="flex items-center justify-between text-xs text-stone-500">
+                        <span>Consolidated Istanbul ➔ UK Courier</span>
+                        <span class="text-emerald-600 font-semibold">Free / Tracked</span>
+                    </div>
+
+                    <!-- Big WhatsApp Checkout Button -->
+                    <button onclick="sendOrderViaWhatsApp()" id="btnSendWhatsApp" class="w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white rounded-xl font-bold text-sm tracking-wide shadow-lg transition flex items-center justify-center gap-2">
+                        <i data-lucide="message-circle" class="w-5 h-5 fill-white text-emerald-600"></i>
+                        <span>Order Directly on WhatsApp</span>
+                    </button>
+                    <p class="text-[11px] text-stone-400 text-center">
+                        Tapping this opens WhatsApp with your items & details already written out. No card details needed now!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. PRODUCT QUICK VIEW MODAL -->
+    <div id="quickViewModal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
+            <div class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm transition-opacity" onclick="closeQuickView()"></div>
+            <div class="inline-block bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all my-8 align-middle max-w-2xl w-full relative z-10 border border-stone-200">
+                <button onclick="closeQuickView()" class="absolute top-4 right-4 z-10 p-2 bg-white/80 hover:bg-white rounded-full text-stone-500 hover:text-stone-900 shadow-sm transition">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                <div class="grid grid-cols-1 sm:grid-cols-2" id="quickViewContent">
+                    <!-- Populated dynamically by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. STORE OWNER / ADMIN PORTAL MODAL (EASY DAILY ADD/EDIT) -->
+    <div id="adminModal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen px-4 py-8">
+            <div class="fixed inset-0 bg-black/70 backdrop-blur-sm" onclick="closeAdminModal()"></div>
+            <div class="bg-white rounded-2xl max-w-3xl w-full p-6 sm:p-8 relative z-10 shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+                <div class="flex items-center justify-between pb-4 border-b border-stone-200">
+                    <div>
+                        <h2 class="font-display text-xl font-bold text-stone-900">Seller Dashboard (Free Shopify Alternative)</h2>
+                        <p class="text-xs text-stone-500">Add or manage clothes, bags & shoes. Updates save instantly on this device.</p>
+                    </div>
+                    <button onclick="closeAdminModal()" class="p-1.5 text-stone-400 hover:text-black rounded-lg">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+
+                <!-- Tabs: [Add/Edit Item] | [WhatsApp & Settings] | [Backup / Export for GitHub] -->
+                <div class="flex border-b border-stone-200 text-xs font-semibold mt-4">
+                    <button onclick="switchAdminTab('addProductTab')" id="tabBtn-add" class="py-2.5 px-4 border-b-2 border-brand-900 text-brand-900">Add New Product</button>
+                    <button onclick="switchAdminTab('inventoryTab')" id="tabBtn-inv" class="py-2.5 px-4 border-b-2 border-transparent text-stone-500 hover:text-stone-800">Manage Catalog (<span id="adminProductCount">0</span>)</button>
+                    <button onclick="switchAdminTab('settingsTab')" id="tabBtn-set" class="py-2.5 px-4 border-b-2 border-transparent text-stone-500 hover:text-stone-800">Store Settings & WhatsApp #</button>
+                    <button onclick="switchAdminTab('backupTab')" id="tabBtn-bac" class="py-2.5 px-4 border-b-2 border-transparent text-stone-500 hover:text-stone-800">GitHub Backup</button>
+                </div>
+
+                <div class="overflow-y-auto flex-1 pt-5 pr-1">
+                    <!-- TAB 1: ADD PRODUCT FORM -->
+                    <div id="addProductTab" class="space-y-4">
+                        <form id="productForm" onsubmit="handleProductSubmit(event)" class="space-y-4">
+                            <input type="hidden" id="editProductId" value="">
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-stone-700 mb-1">Product Title *</label>
+                                    <input type="text" id="pTitle" required placeholder="e.g. Istanbul Linen Resort Dress" class="w-full text-xs p-2.5 border border-stone-300 rounded-lg focus:ring-2 focus:ring-brand-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-stone-700 mb-1">Category *</label>
+                                    <select id="pCategory" required class="w-full text-xs p-2.5 border border-stone-300 rounded-lg focus:ring-2 focus:ring-brand-500">
+                                        <option value="Clothes">👗 Clothes (Dresses, Shirts, Tops)</option>
+                                        <option value="Bags">👜 Bags (Turkish Leather, Totes)</option>
+                                        <option value="Shoes">👠 Shoes (Loafers, Sandals, Heels)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-stone-700 mb-1">Price in GBP (£) *</label>
+                                    <div class="relative">
+                                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 font-bold">£</span>
+                                        <input type="number" step="0.01" min="1" id="pPrice" required placeholder="49.99" class="w-full text-xs pl-7 p-2.5 border border-stone-300 rounded-lg focus:ring-2 focus:ring-brand-500">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-stone-700 mb-1">Original / Compare Price (£)</label>
+                                    <div class="relative">
+                                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 font-bold">£</span>
+                                        <input type="number" step="0.01" id="pOriginalPrice" placeholder="69.99 (Optional discount)" class="w-full text-xs pl-7 p-2.5 border border-stone-300 rounded-lg focus:ring-2 focus:ring-brand-500">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-stone-700 mb-1">Made In / Fabric Badge</label>
+                                    <input type="text" id="pBadge" placeholder="e.g. 100% Aegean Cotton or Istanbul Handcrafted" class="w-full text-xs p-2.5 border border-stone-300 rounded-lg focus:ring-2 focus:ring-brand-500">
+                                </div>
+                            </div>
+
+                            <!-- Photo Upload (URL or Local File converted to image) -->
+                            <div class="space-y-2">
+                                <label class="block text-xs font-bold text-stone-700">Product Photo *</label>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
+                                    <div>
+                                        <input type="url" id="pImageUrl" placeholder="Paste Image URL (Unsplash, Imgur, etc.)" class="w-full text-xs p-2.5 border border-stone-300 rounded-lg focus:ring-2 focus:ring-brand-500">
+                                        <span class="text-[10px] text-stone-400 block mt-1">Or upload an image from your phone/laptop below:</span>
+                                    </div>
+                                    <div>
+                                        <input type="file" id="pFileUpload" accept="image/*" onchange="handleImageFile(this)" class="w-full text-xs p-1.5 border border-stone-300 rounded-lg file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:bg-stone-100 file:text-stone-700 hover:file:bg-stone-200">
+                                    </div>
+                                </div>
+                                <div id="imagePreviewContainer" class="hidden mt-2 flex items-center gap-3 p-2 bg-stone-50 rounded-lg border border-stone-200">
+                                    <img id="imagePreview" src="" alt="Preview" class="w-12 h-14 object-cover rounded shadow">
+                                    <span class="text-xs text-stone-600">Image loaded & ready</span>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-stone-700 mb-1">Available Sizes (Comma separated)</label>
+                                    <input type="text" id="pSizes" placeholder="e.g. S, M, L, XL or UK 4, 5, 6, 7 or One Size" class="w-full text-xs p-2.5 border border-stone-300 rounded-lg focus:ring-2 focus:ring-brand-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-stone-700 mb-1">Stock Status</label>
+                                    <select id="pStock" class="w-full text-xs p-2.5 border border-stone-300 rounded-lg">
+                                        <option value="in_stock">In Stock (Dispatches in 24 hrs)</option>
+                                        <option value="pre_order">Pre-Order from Turkey</option>
+                                        <option value="low_stock">Low Stock - Only few left</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-stone-700 mb-1">Product Description</label>
+                                <textarea id="pDesc" rows="3" placeholder="Tell UK buyers about the fabric, cut, origin in Turkey, and fit..." class="w-full text-xs p-2.5 border border-stone-300 rounded-lg focus:ring-2 focus:ring-brand-500"></textarea>
+                            </div>
+
+                            <div class="flex items-center justify-end gap-3 pt-3 border-t border-stone-200">
+                                <button type="button" onclick="resetProductForm()" class="px-4 py-2 border border-stone-300 text-stone-700 rounded-lg text-xs font-semibold hover:bg-stone-100">Cancel</button>
+                                <button type="submit" id="btnSaveProduct" class="px-6 py-2.5 bg-brand-900 text-white rounded-lg text-xs font-semibold hover:bg-black transition flex items-center gap-1.5 shadow">
+                                    <i data-lucide="plus" class="w-4 h-4"></i>
+                                    <span>Publish Product</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- TAB 2: INVENTORY LIST (EDIT/DELETE) -->
+                    <div id="inventoryTab" class="hidden space-y-3">
+                        <div class="flex items-center justify-between pb-2">
+                            <span class="text-xs text-stone-500">Click any product to edit its price, photo or details:</span>
+                            <button onclick="resetToSampleProducts()" class="text-xs text-amber-700 hover:underline">Restore Demo Catalog</button>
+                        </div>
+                        <div id="adminInventoryList" class="space-y-2">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: STORE SETTINGS & WHATSAPP NUMBER -->
+                    <div id="settingsTab" class="hidden space-y-4">
+                        <div class="bg-stone-50 p-4 rounded-xl border border-stone-200 space-y-3">
+                            <h3 class="text-sm font-bold text-stone-800 flex items-center gap-2">
+                                <i data-lucide="message-circle" class="w-4 h-4 text-green-600"></i>
+                                WhatsApp Receiving Number
+                            </h3>
+                            <p class="text-xs text-stone-500">
+                                All UK order inquiries will be dispatched directly to this WhatsApp phone number (with country code, without + or spaces).
+                            </p>
+                            <div class="flex gap-2">
+                                <div class="relative flex-1">
+                                    <input type="text" id="sellerWaNumber" value="447700900077" placeholder="e.g. 447700900077 or 905321234567" class="w-full text-xs p-2.5 border border-stone-300 rounded-lg font-mono">
+                                </div>
+                                <button onclick="saveWhatsAppNumber()" class="px-4 py-2 bg-emerald-600 text-white rounded-lg text-xs font-semibold hover:bg-emerald-700">Save Number</button>
+                            </div>
+                            <span class="text-[11px] text-stone-400 block">Example UK number: <strong>447123456789</strong> | Example Turkish number: <strong>905321234567</strong></span>
+                        </div>
+
+                        <div class="bg-stone-50 p-4 rounded-xl border border-stone-200 space-y-2">
+                            <h3 class="text-sm font-bold text-stone-800">Store Name & Currency</h3>
+                            <div class="grid grid-cols-2 gap-3 pt-1">
+                                <div>
+                                    <label class="block text-[11px] text-stone-500 mb-1">Store Name</label>
+                                    <input type="text" id="settingStoreName" value="Bosphorus & Co." class="w-full text-xs p-2 border border-stone-300 rounded">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] text-stone-500 mb-1">Currency Symbol</label>
+                                    <input type="text" id="settingCurrency" value="£" class="w-full text-xs p-2 border border-stone-300 rounded">
+                                </div>
+                            </div>
+                            <button onclick="saveStoreSettings()" class="mt-2 px-4 py-2 bg-stone-800 text-white rounded-lg text-xs font-semibold">Update Store Info</button>
+                        </div>
+                    </div>
+
+                    <!-- TAB 4: GITHUB BACKUP & DATA EXPORT/IMPORT -->
+                    <div id="backupTab" class="hidden space-y-4">
+                        <div class="p-4 bg-amber-50 rounded-xl border border-amber-200 text-amber-900 text-xs leading-relaxed">
+                            <p class="font-bold flex items-center gap-1.5 mb-1">
+                                <i data-lucide="info" class="w-4 h-4 text-amber-600"></i>
+                                How GitHub Hosting Works with this Catalog:
+                            </p>
+                            Your products are saved immediately in your browser's local memory. If you want everyone in the UK to see the exact items you added when hosted on GitHub, click <strong>"Export Catalog Code"</strong> below and paste it into this HTML file, or download the JSON backup anytime!
+                        </div>
+
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="exportCatalogJSON()" class="px-4 py-2 bg-brand-900 text-white rounded-lg text-xs font-semibold hover:bg-black flex items-center gap-1.5">
+                                <i data-lucide="download" class="w-4 h-4"></i> Download Catalog JSON
+                            </button>
+                            <button onclick="copyCatalogToClipboard()" class="px-4 py-2 bg-stone-100 text-stone-800 border border-stone-300 rounded-lg text-xs font-semibold hover:bg-stone-200 flex items-center gap-1.5">
+                                <i data-lucide="copy" class="w-4 h-4"></i> Copy JSON to Clipboard
+                            </button>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 mb-1">Import Existing Catalog JSON:</label>
+                            <textarea id="importJsonTextarea" rows="4" placeholder="Paste your exported JSON data here to load on another computer or mobile phone..." class="w-full text-xs p-2 font-mono border border-stone-300 rounded-lg"></textarea>
+                            <button onclick="importCatalogJSON()" class="mt-2 px-4 py-2 bg-emerald-600 text-white rounded-lg text-xs font-semibold hover:bg-emerald-700">Load Catalog from JSON</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. "WHY TURKEY TO UK" STORY MODAL -->
+    <div id="storyModal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen px-4 py-6">
+            <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" onclick="closeStoryModal()"></div>
+            <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 relative z-10 shadow-2xl space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-stone-200">
+                    <h3 class="font-display text-xl font-bold text-stone-900">From Istanbul to the UK</h3>
+                    <button onclick="closeStoryModal()" class="p-1 text-stone-400 hover:text-black">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div class="text-xs sm:text-sm text-stone-600 space-y-3 leading-relaxed">
+                    <p>
+                        Turkey produces high-quality textiles and leather in the Mediterranean basin. Famous European fashion houses source in Turkey for good reason.
+                    </p>
+                    <div class="p-3 bg-brand-50 rounded-xl border border-brand-200 text-brand-900">
+                        <span class="font-semibold block mb-1">Why shop our catalog?</span>
+                        <ul class="list-disc pl-4 space-y-1 text-xs">
+                            <li><strong>Prices in GBP (£):</strong> Transparent, converted pricing.</li>
+                            <li><strong>Direct WhatsApp Communication:</strong> Ask for custom video clips, measurements, or color choices before paying.</li>
+                            <li><strong>Consolidated Dispatch:</strong> Shipped safely directly to UK addresses via tracked courier.</li>
+                        </ul>
+                    </div>
+                    <p class="text-xs text-stone-500">
+                        Have custom wholesale or bulk requests? Contact our Istanbul office directly through WhatsApp.
+                    </p>
+                </div>
+                <button onclick="closeStoryModal()" class="w-full py-2.5 bg-stone-900 text-white rounded-xl text-xs font-semibold hover:bg-black">Return to Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toastNotification" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-stone-900 text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 text-xs border border-stone-700">
+            <div id="toastIcon" class="text-emerald-400"><i data-lucide="check-circle" class="w-5 h-5"></i></div>
+            <span id="toastMessage">Action completed</span>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        // Initial Demo Products tailored for Turkey to UK fashion boutique
+        const DEFAULT_PRODUCTS = [
+            {
+                id: "tr-001",
+                title: "Bodrum Pure Linen Midi Dress",
+                category: "Clothes",
+                price: 54.00,
+                originalPrice: 75.00,
+                image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80",
+                badge: "100% Aegean Linen",
+                sizes: ["UK 8", "UK 10", "UK 12", "UK 14"],
+                stock: "in_stock",
+                desc: "Woven in Denizli with natural Turkish flax linen. Breathable, fluid silhouette featuring wooden buttons and side slit pockets. Perfect for British summers and warm holiday escapes."
+            },
+            {
+                id: "tr-002",
+                title: "Grand Bazaar Handcrafted Leather Tote",
+                category: "Bags",
+                price: 89.00,
+                originalPrice: 120.00,
+                image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80",
+                badge: "Vegetable-Tanned Calfskin",
+                sizes: ["One Size"],
+                stock: "in_stock",
+                desc: "Hand-stitched in historic Beyoğlu ateliers using supple Turkish calfskin leather. Fits up to a 15-inch MacBook, notebook, and essentials. Gold hardware finish."
+            },
+            {
+                id: "tr-003",
+                title: "Nişantaşı Block Heel Mule",
+                category: "Shoes",
+                price: 68.00,
+                originalPrice: 85.00,
+                image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80",
+                badge: "Handmade in Izmir",
+                sizes: ["UK 4", "UK 5", "UK 6", "UK 7", "UK 8"],
+                stock: "in_stock",
+                desc: "Ultra-cushioned insole designed for walking city streets in comfort. Hand-lasted upper in rich saddle tan with a modern sculpted 5cm heel."
+            },
+            {
+                id: "tr-004",
+                title: "Cappadocia Chunky Knit Cardigan",
+                category: "Clothes",
+                price: 62.00,
+                originalPrice: 80.00,
+                image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=800&q=80",
+                badge: "Anatolian Wool Blend",
+                sizes: ["S/M (UK 8-12)", "M/L (UK 12-16)"],
+                stock: "in_stock",
+                desc: "Soft brushed Anatolian wool knit with handcrafted tortoiseshell buttons. Cosy boxy fit that transitions effortlessly from London autumns to chilly evenings."
+            },
+            {
+                id: "tr-005",
+                title: "Karaköy Croc-Embossed Baguette Bag",
+                category: "Bags",
+                price: 52.00,
+                originalPrice: 65.00,
+                image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80",
+                badge: "Turkish Patent Leather",
+                sizes: ["One Size"],
+                stock: "low_stock",
+                desc: "Trending 90s silhouette inspired by Istanbul nightlife. Includes detachable leather shoulder strap and inside zip compartment."
+            },
+            {
+                id: "tr-006",
+                title: "Bosphorus Penny Loafers in Espresso",
+                category: "Shoes",
+                price: 79.00,
+                originalPrice: 110.00,
+                image: "https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=800&q=80",
+                badge: "Genuine Leather & Sole",
+                sizes: ["UK 5", "UK 6", "UK 7", "UK 8", "UK 9"],
+                stock: "in_stock",
+                desc: "Hand-burnished dark espresso Turkish leather penny loafer with stacked heel. Classic timeless British smart-casual styling with Eastern leather artistry."
+            },
+            {
+                id: "tr-007",
+                title: "Izmir Poplin Wrap Blouse",
+                category: "Clothes",
+                price: 42.00,
+                originalPrice: 55.00,
+                image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80",
+                badge: "Crisp Organic Cotton",
+                sizes: ["UK 6", "UK 8", "UK 10", "UK 12"],
+                stock: "in_stock",
+                desc: "High-grade Turkish cotton poplin with flattering wrap tie front and structured cuffs. Pairs beautifully with tailored trousers or denim."
+            },
+            {
+                id: "tr-008",
+                title: "Sultanahmet Saddle Crossbody",
+                category: "Bags",
+                price: 64.00,
+                originalPrice: 80.00,
+                image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=800&q=80",
+                badge: "Pebbled Turkish Leather",
+                sizes: ["One Size"],
+                stock: "in_stock",
+                desc: "Scratch-resistant pebbled leather with antique brass clasp. Designed for daily travel and on-the-go London commuting."
+            }
+        ];
+
+        // App State
+        let products = [];
+        let currentFilter = 'All';
+        let searchQuery = '';
+        let currentSort = 'featured';
+        let cart = [];
+        let sellerWhatsApp = '447700900077'; // default WhatsApp
+        let uploadedBase64Image = null;
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStoreData();
+            renderCategoryCounts();
+            renderProducts();
+            updateCartBadge();
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            lucide.createIcons();
+        });
+
+        // Load data from LocalStorage or Defaults
+        function loadStoreData() {
+            const savedProducts = localStorage.getItem('bosphorus_products');
+            if (savedProducts) {
+                try {
+                    products = JSON.parse(savedProducts);
+                } catch(e) {
+                    products = [...DEFAULT_PRODUCTS];
+                }
+            } else {
+                products = [...DEFAULT_PRODUCTS];
+                saveProductsToStorage();
+            }
+
+            const savedWa = localStorage.getItem('bosphorus_wa_number');
+            if (savedWa) {
+                sellerWhatsApp = savedWa;
+                document.getElementById('sellerWaNumber').value = savedWa;
+                updateWhatsAppHeaderLink();
+            }
+
+            const savedCart = localStorage.getItem('bosphorus_cart');
+            if (savedCart) {
+                try { cart = JSON.parse(savedCart); } catch(e) { cart = []; }
+            }
+        }
+
+        function saveProductsToStorage() {
+            localStorage.setItem('bosphorus_products', JSON.stringify(products));
+        }
+
+        function saveCartToStorage() {
+            localStorage.setItem('bosphorus_cart', JSON.stringify(cart));
+            updateCartBadge();
+        }
+
+        function updateWhatsAppHeaderLink() {
+            const headerLink = document.getElementById('headerWaLink');
+            if (headerLink) {
+                headerLink.href = `https://wa.me/${sellerWhatsApp}?text=Hello%20Bosphorus%20London,%20I'm%20browsing%20your%20Turkish%20fashion%20catalog.`;
+            }
+        }
+
+        // Render Product Counts
+        function renderCategoryCounts() {
+            document.getElementById('count-all').textContent = products.length;
+            document.getElementById('count-clothes').textContent = products.filter(p => p.category === 'Clothes').length;
+            document.getElementById('count-bags').textContent = products.filter(p => p.category === 'Bags').length;
+            document.getElementById('count-shoes').textContent = products.filter(p => p.category === 'Shoes').length;
+            document.getElementById('adminProductCount').textContent = products.length;
+        }
+
+        // Product Grid Rendering
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            const empty = document.getElementById('emptyState');
+            grid.innerHTML = '';
+
+            let filtered = products.filter(item => {
+                const matchesCategory = currentFilter === 'All' || item.category === currentFilter;
+                const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      item.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                      (item.badge && item.badge.toLowerCase().includes(searchQuery.toLowerCase()));
+                return matchesCategory && matchesSearch;
+            });
+
+            // Sorting
+            if (currentSort === 'price-low') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (currentSort === 'price-high') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (currentSort === 'name') {
+                filtered.sort((a, b) => a.title.localeCompare(b.title));
+            }
+
+            if (filtered.length === 0) {
+                empty.classList.remove('hidden');
+                grid.classList.add('hidden');
+                return;
+            } else {
+                empty.classList.add('hidden');
+                grid.classList.remove('hidden');
+            }
+
+            filtered.forEach(p => {
+                const discount = p.originalPrice && p.originalPrice > p.price 
+                    ? Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100) 
+                    : null;
+
+                const card = document.createElement('div');
+                card.className = "group bg-white rounded-2xl overflow-hidden border border-stone-200 hover:border-brand-500/50 hover:shadow-xl transition-all duration-300 flex flex-col justify-between";
+                
+                card.innerHTML = `
+                    <div class="relative overflow-hidden bg-stone-100 aspect-[3/4] cursor-pointer" onclick="openQuickViewById('${p.id}')">
+                        <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500 ease-out" onerror="this.src='https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80'">
+                        
+                        <!-- Badges -->
+                        <div class="absolute top-2.5 left-2.5 flex flex-col gap-1 items-start">
+                            ${p.badge ? `<span class="bg-brand-900/85 backdrop-blur-md text-white text-[10px] font-semibold px-2 py-0.5 rounded shadow-sm">🇹🇷 ${p.badge}</span>` : ''}
+                            ${discount ? `<span class="bg-rose-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded shadow-sm">-${discount}% OFF</span>` : ''}
+                        </div>
+
+                        <!-- Quick View Overlay button -->
+                        <button class="absolute bottom-2.5 right-2.5 p-2 bg-white/90 hover:bg-white text-stone-800 rounded-full shadow-md backdrop-blur-sm opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-all" title="Quick Details">
+                            <i data-lucide="eye" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+
+                    <!-- Details -->
+                    <div class="p-3.5 sm:p-4 flex flex-col flex-grow justify-between">
+                        <div>
+                            <div class="flex items-center justify-between text-[11px] text-stone-500 mb-1">
+                                <span class="uppercase tracking-wider font-semibold text-brand-700">${p.category}</span>
+                                <span class="text-emerald-700 font-medium">To UK: 3-5d</span>
+                            </div>
+
+                            <h3 onclick="openQuickViewById('${p.id}')" class="font-display font-semibold text-sm sm:text-base text-stone-900 group-hover:text-brand-700 transition cursor-pointer line-clamp-1">${p.title}</h3>
+                            <p class="text-xs text-stone-500 mt-1 line-clamp-2">${p.desc}</p>
+                        </div>
+
+                        <div class="pt-3 mt-2 border-t border-stone-100 flex flex-col gap-2.5">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-base sm:text-lg font-bold text-stone-900">£${p.price.toFixed(2)}</span>
+                                ${p.originalPrice ? `<span class="text-xs text-stone-400 line-through">£${p.originalPrice.toFixed(2)}</span>` : ''}
+                            </div>
+
+                            <!-- Buttons: WhatsApp Direct Order OR Add to Bag -->
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="quickOrderWhatsApp('${p.id}')" class="py-2 px-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1" title="Order single item on WhatsApp">
+                                    <i data-lucide="message-circle" class="w-3.5 h-3.5 text-emerald-600"></i>
+                                    <span>WhatsApp</span>
+                                </button>
+                                <button onclick="addToBag('${p.id}')" class="py-2 px-2 bg-brand-900 hover:bg-black text-white rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1 shadow-sm">
+                                    <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
+                                    <span>+ Bag</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            lucide.createIcons();
+        }
+
+        // Filtering & Sorting Handlers
+        function filterCategory(cat) {
+            currentFilter = cat;
+            document.querySelectorAll('.filter-pill').forEach(btn => {
+                if (btn.dataset.cat === cat) {
+                    btn.classList.add('bg-brand-900', 'text-white');
+                    btn.classList.remove('bg-stone-100', 'text-stone-700');
+                } else {
+                    btn.classList.remove('bg-brand-900', 'text-white');
+                    btn.classList.add('bg-stone-100', 'text-stone-700');
+                }
+            });
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.dataset.cat === cat) {
+                    link.classList.add('text-brand-900', 'font-bold');
+                } else {
+                    link.classList.remove('text-brand-900', 'font-bold');
+                }
+            });
+
+            document.getElementById('activeFilterLabel').textContent = 
+                cat === 'All' ? 'Showing all products' : `Filtered by: ${cat}`;
+
+            renderProducts();
+        }
+
+        function handleSearch(query) {
+            searchQuery = query;
+            renderProducts();
+        }
+
+        function handleSort(sortVal) {
+            currentSort = sortVal;
+            renderProducts();
+        }
+
+        function resetFilters() {
+            searchQuery = '';
+            document.getElementById('searchInput').value = '';
+            filterCategory('All');
+        }
+
+        function scrollToCatalog() {
+            document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Quick View Modal
+        function openQuickViewById(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const modal = document.getElementById('quickViewModal');
+            const container = document.getElementById('quickViewContent');
+
+            const sizesArr = Array.isArray(product.sizes) ? product.sizes : (product.sizes ? product.sizes.split(',') : []);
+
+            container.innerHTML = `
+                <div class="relative bg-stone-100 aspect-square sm:aspect-auto">
+                    <img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover">
+                    ${product.badge ? `<span class="absolute top-3 left-3 bg-brand-900 text-white text-xs font-semibold px-2.5 py-1 rounded">🇹🇷 ${product.badge}</span>` : ''}
+                </div>
+                <div class="p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="text-[11px] uppercase tracking-wider font-bold text-brand-700 mb-1">${product.category} &bull; Made in Turkey</div>
+                        <h2 class="font-display text-xl font-bold text-stone-900">${product.title}</h2>
+                        
+                        <div class="flex items-baseline gap-2 mt-2">
+                            <span class="text-2xl font-bold text-stone-900">£${product.price.toFixed(2)}</span>
+                            ${product.originalPrice ? `<span class="text-sm text-stone-400 line-through">£${product.originalPrice.toFixed(2)}</span>` : ''}
+                            <span class="text-xs text-emerald-700 font-medium ml-2">Delivered to UK</span>
+                        </div>
+
+                        <p class="text-xs text-stone-600 mt-4 leading-relaxed">${product.desc}</p>
+
+                        <!-- Size selection -->
+                        ${sizesArr.length > 0 ? `
+                            <div class="mt-4">
+                                <label class="block text-xs font-semibold text-stone-700 mb-2">Select UK / EUR Size:</label>
+                                <div class="flex flex-wrap gap-2" id="quickViewSizes">
+                                    ${sizesArr.map((size, index) => `
+                                        <button type="button" onclick="selectQuickViewSize(this, '${size.trim()}')" class="size-btn px-3 py-1.5 text-xs rounded-lg border ${index === 0 ? 'border-brand-900 bg-brand-900 text-white font-bold' : 'border-stone-300 text-stone-700 hover:border-black'}">
+                                            ${size.trim()}
+                                        </button>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+
+                        <div class="mt-4 p-3 bg-stone-50 rounded-xl border border-stone-200 text-[11px] text-stone-500 space-y-1">
+                            <div class="flex items-center gap-1.5 font-medium text-stone-700">
+                                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
+                                <span>No payment required right now.</span>
+                            </div>
+                            <p>Connect with our WhatsApp rep to confirm stock, express DHL/Royal Mail tracking, and dispatch.</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 space-y-2 mt-4 border-t border-stone-200">
+                        <button onclick="orderFromQuickView('${product.id}')" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition flex items-center justify-center gap-2 shadow-md">
+                            <i data-lucide="message-circle" class="w-4 h-4 fill-white"></i>
+                            <span>Inquire & Order on WhatsApp (£${product.price.toFixed(2)})</span>
+                        </button>
+                        <button onclick="addToBagFromQuickView('${product.id}')" class="w-full py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-800 font-semibold text-xs rounded-xl transition flex items-center justify-center gap-2">
+                            <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                            <span>Add to Cart Bag</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        let selectedModalSize = '';
+
+        function selectQuickViewSize(btn, size) {
+            document.querySelectorAll('#quickViewSizes .size-btn').forEach(b => {
+                b.className = 'size-btn px-3 py-1.5 text-xs rounded-lg border border-stone-300 text-stone-700 hover:border-black';
+            });
+            btn.className = 'size-btn px-3 py-1.5 text-xs rounded-lg border border-brand-900 bg-brand-900 text-white font-bold';
+            selectedModalSize = size;
+        }
+
+        function closeQuickView() {
+            document.getElementById('quickViewModal').classList.add('hidden');
+            selectedModalSize = '';
+        }
+
+        function orderFromQuickView(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            const sizeText = selectedModalSize ? ` (Size: ${selectedModalSize})` : '';
+            const msg = `Hello Bosphorus London! 🇹🇷✈🇬🇧%0A%0AI'd like to order this item from your catalog:%0A• Item: *${encodeURIComponent(product.title)}*${encodeURIComponent(sizeText)}%0A• Price: *£${product.price.toFixed(2)}*%0A• Category: ${product.category}%0A%0ACould you please advise availability & UK delivery timeframe? Thank you!`;
+            window.open(`https://wa.me/${sellerWhatsApp}?text=${msg}`, '_blank');
+        }
+
+        function addToBagFromQuickView(productId) {
+            addToBag(productId, selectedModalSize);
+            closeQuickView();
+        }
+
+        // WhatsApp Direct single item ordering
+        function quickOrderWhatsApp(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            const msg = `Hello Bosphorus London! 🇹🇷✈🇬🇧%0A%0AI am interested in purchasing:%0A• Product: *${encodeURIComponent(product.title)}*%0A• Price: *£${product.price.toFixed(2)}*%0A• Code: ${product.id}%0A%0APlease let me know how to finalize UK tracked delivery.`;
+            window.open(`https://wa.me/${sellerWhatsApp}?text=${msg}`, '_blank');
+        }
+
+        // Cart Drawer Operations
+        function addToBag(productId, preferredSize = '') {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const sizesArr = Array.isArray(product.sizes) ? product.sizes : (product.sizes ? product.sizes.split(',') : []);
+            const sizeToUse = preferredSize || (sizesArr.length > 0 ? sizesArr[0].trim() : 'Standard');
+
+            const existingIndex = cart.findIndex(item => item.id === productId && item.selectedSize === sizeToUse);
+
+            if (existingIndex > -1) {
+                cart[existingIndex].quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    image: product.image,
+                    selectedSize: sizeToUse,
+                    quantity: 1
+                });
+            }
+
+            saveCartToStorage();
+            showToast(`Added "${product.title}" to your Bag`);
+        }
+
+        function updateCartBadge() {
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCountBadge').textContent = totalCount;
+            document.getElementById('cartDrawerCount').textContent = totalCount;
+        }
+
+        function openCartDrawer() {
+            renderCartItems();
+            document.getElementById('cartDrawer').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeCartDrawer() {
+            document.getElementById('cartDrawer').classList.add('hidden');
+        }
+
+        function renderCartItems() {
+            const container = document.getElementById('cartItemsList');
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-stone-400">
+                        <i data-lucide="shopping-bag" class="w-12 h-12 mx-auto mb-2 opacity-50"></i>
+                        <p class="text-sm font-medium text-stone-600">Your bag is empty</p>
+                        <p class="text-xs mt-1">Explore our Turkish apparel, bags & shoes!</p>
+                        <button onclick="closeCartDrawer(); scrollToCatalog();" class="mt-4 px-4 py-2 bg-brand-900 text-white rounded-full text-xs font-semibold">Start Browsing</button>
+                    </div>
+                `;
+                document.getElementById('cartSubtotal').textContent = '£0.00';
+                lucide.createIcons();
+                return;
+            }
+
+            let subtotal = 0;
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+
+                const itemRow = document.createElement('div');
+                itemRow.className = "flex gap-3 pb-4 border-b border-stone-200 items-center justify-between";
+                itemRow.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <img src="${item.image}" alt="${item.title}" class="w-14 h-16 object-cover rounded-lg bg-stone-100 shadow-sm shrink-0">
+                        <div>
+                            <h4 class="text-xs font-bold text-stone-900 line-clamp-1">${item.title}</h4>
+                            <span class="text-[11px] text-brand-700 bg-stone-100 px-1.5 py-0.5 rounded">${item.selectedSize}</span>
+                            <div class="text-xs font-semibold text-stone-800 mt-1">£${item.price.toFixed(2)}</div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col items-end gap-1">
+                        <div class="flex items-center border border-stone-300 rounded-lg overflow-hidden bg-white">
+                            <button onclick="changeCartQty(${index}, -1)" class="px-2 py-1 hover:bg-stone-100 text-stone-600 text-xs font-bold">-</button>
+                            <span class="px-2 py-1 text-xs font-bold text-stone-800">${item.quantity}</span>
+                            <button onclick="changeCartQty(${index}, 1)" class="px-2 py-1 hover:bg-stone-100 text-stone-600 text-xs font-bold">+</button>
+                        </div>
+                        <button onclick="removeCartItem(${index})" class="text-[10px] text-rose-600 hover:underline">Remove</button>
+                    </div>
+                `;
+                container.appendChild(itemRow);
+            });
+
+            document.getElementById('cartSubtotal').textContent = `£${subtotal.toFixed(2)}`;
+            lucide.createIcons();
+        }
+
+        function changeCartQty(index, delta) {
+            if (!cart[index]) return;
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            saveCartToStorage();
+            renderCartItems();
+        }
+
+        function removeCartItem(index) {
+            cart.splice(index, 1);
+            saveCartToStorage();
+            renderCartItems();
+        }
+
+        // SEND COMPLETE CART VIA WHATSAPP CONCIERGE
+        function sendOrderViaWhatsApp() {
+            if (cart.length === 0) {
+                showToast("Your cart is empty! Add items first.");
+                return;
+            }
+
+            const custName = document.getElementById('custName').value.trim();
+            const custPostcode = document.getElementById('custPostcode').value.trim();
+
+            let total = 0;
+            let itemsSummary = cart.map((item, idx) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                return `${idx + 1}. *${item.title}*%0A   - Size: ${item.selectedSize}%0A   - Qty: ${item.quantity} x £${item.price.toFixed(2)} = £${itemTotal.toFixed(2)}`;
+            }).join('%0A%0A');
+
+            let message = `*NEW ORDER INQUIRY - BOSPHORUS & CO.*%0A_Dispatched from Istanbul 🇹🇷 to UK 🇬🇧_%0A%0A`;
+            if (custName) message += `👤 *Customer Name:* ${encodeURIComponent(custName)}%0A`;
+            if (custPostcode) message += `📍 *UK Location / Postcode:* ${encodeURIComponent(custPostcode)}%0A`;
+            message += `%0A🛍 *ORDER ITEMS:*%0A${itemsSummary}%0A%0A`;
+            message += `💰 *Subtotal:* £${total.toFixed(2)}%0A`;
+            message += `🚚 *Shipping:* Consolidated Tracked Delivery to UK%0A%0A`;
+            message += `Please confirm availability and how I can proceed with this order. Thank you!`;
+
+            const waUrl = `https://wa.me/${sellerWhatsApp}?text=${message}`;
+            window.open(waUrl, '_blank');
+        }
+
+        // ================= ADMIN DASHBOARD FUNCTIONS =================
+        function openAdminModal() {
+            document.getElementById('adminModal').classList.remove('hidden');
+            renderAdminInventory();
+            switchAdminTab('addProductTab');
+            lucide.createIcons();
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.add('hidden');
+            resetProductForm();
+        }
+
+        function switchAdminTab(tabId) {
+            const tabs = ['addProductTab', 'inventoryTab', 'settingsTab', 'backupTab'];
+            tabs.forEach(t => {
+                document.getElementById(t).classList.add('hidden');
+            });
+            document.getElementById(tabId).classList.remove('hidden');
+
+            // Button highlights
+            const tabButtons = {
+                'addProductTab': 'tabBtn-add',
+                'inventoryTab': 'tabBtn-inv',
+                'settingsTab': 'tabBtn-set',
+                'backupTab': 'tabBtn-bac'
+            };
+            Object.keys(tabButtons).forEach(key => {
+                const btn = document.getElementById(tabButtons[key]);
+                if (key === tabId) {
+                    btn.classList.add('border-brand-900', 'text-brand-900');
+                    btn.classList.remove('border-transparent', 'text-stone-500');
+                } else {
+                    btn.classList.remove('border-brand-900', 'text-brand-900');
+                    btn.classList.add('border-transparent', 'text-stone-500');
+                }
+            });
+
+            if (tabId === 'inventoryTab') renderAdminInventory();
+            lucide.createIcons();
+        }
+
+        // Image file handling (file reader to Base64 dataURL)
+        function handleImageFile(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedBase64Image = e.target.result;
+                    document.getElementById('imagePreview').src = uploadedBase64Image;
+                    document.getElementById('imagePreviewContainer').classList.remove('hidden');
+                    document.getElementById('pImageUrl').value = ''; // clear url input
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Submit product (Create or Edit)
+        function handleProductSubmit(e) {
+            e.preventDefault();
+
+            const editId = document.getElementById('editProductId').value;
+            const title = document.getElementById('pTitle').value.trim();
+            const category = document.getElementById('pCategory').value;
+            const price = parseFloat(document.getElementById('pPrice').value);
+            const originalPriceVal = document.getElementById('pOriginalPrice').value;
+            const originalPrice = originalPriceVal ? parseFloat(originalPriceVal) : null;
+            const badge = document.getElementById('pBadge').value.trim();
+            const urlInput = document.getElementById('pImageUrl').value.trim();
+            const sizesRaw = document.getElementById('pSizes').value.trim();
+            const stock = document.getElementById('pStock').value;
+            const desc = document.getElementById('pDesc').value.trim();
+
+            const imageUrl = uploadedBase64Image || urlInput || 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80';
+
+            const sizesArray = sizesRaw ? sizesRaw.split(',').map(s => s.trim()) : ['One Size'];
+
+            if (editId) {
+                // Edit existing
+                const index = products.findIndex(p => p.id === editId);
+                if (index > -1) {
+                    products[index] = {
+                        ...products[index],
+                        title,
+                        category,
+                        price,
+                        originalPrice,
+                        badge,
+                        image: imageUrl,
+                        sizes: sizesArray,
+                        stock,
+                        desc
+                    };
+                    showToast(`Updated "${title}" successfully`);
+                }
+            } else {
+                // Create new
+                const newProduct = {
+                    id: 'tr-' + Date.now().toString(36),
+                    title,
+                    category,
+                    price,
+                    originalPrice,
+                    badge: badge || 'Handcrafted in Turkey',
+                    image: imageUrl,
+                    sizes: sizesArray,
+                    stock,
+                    desc: desc || 'Authentic Turkish boutique piece dispatched directly to the UK.'
+                };
+                products.unshift(newProduct);
+                showToast(`Product "${title}" added to store!`);
+            }
+
+            saveProductsToStorage();
+            renderCategoryCounts();
+            renderProducts();
+            resetProductForm();
+            switchAdminTab('inventoryTab');
+        }
+
+        function resetProductForm() {
+            document.getElementById('productForm').reset();
+            document.getElementById('editProductId').value = '';
+            document.getElementById('btnSaveProduct').innerHTML = '<i data-lucide="plus" class="w-4 h-4"></i><span>Publish Product</span>';
+            document.getElementById('imagePreviewContainer').classList.add('hidden');
+            uploadedBase64Image = null;
+            lucide.createIcons();
+        }
+
+        // Render Inventory list for Edit/Delete
+        function renderAdminInventory() {
+            const list = document.getElementById('adminInventoryList');
+            list.innerHTML = '';
+
+            products.forEach(p => {
+                const row = document.createElement('div');
+                row.className = "flex items-center justify-between p-3 bg-stone-50 rounded-xl border border-stone-200 hover:bg-stone-100 transition";
+                row.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <img src="${p.image}" alt="${p.title}" class="w-12 h-14 object-cover rounded bg-stone-200">
+                        <div>
+                            <h4 class="text-xs font-bold text-stone-900">${p.title}</h4>
+                            <div class="text-[11px] text-stone-500">
+                                <span>${p.category}</span> &bull; <strong class="text-stone-800">£${p.price.toFixed(2)}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="editProduct('${p.id}')" class="px-3 py-1.5 bg-brand-900 text-white rounded-lg text-xs font-semibold hover:bg-black transition flex items-center gap-1">
+                            <i data-lucide="pencil" class="w-3 h-3"></i> Edit
+                        </button>
+                        <button onclick="deleteProduct('${p.id}')" class="p-1.5 bg-rose-50 text-rose-700 hover:bg-rose-100 rounded-lg text-xs font-semibold transition" title="Delete">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                `;
+                list.appendChild(row);
+            });
+            lucide.createIcons();
+        }
+
+        function editProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            document.getElementById('editProductId').value = product.id;
+            document.getElementById('pTitle').value = product.title;
+            document.getElementById('pCategory').value = product.category;
+            document.getElementById('pPrice').value = product.price;
+            document.getElementById('pOriginalPrice').value = product.originalPrice || '';
+            document.getElementById('pBadge').value = product.badge || '';
+            document.getElementById('pImageUrl').value = product.image.startsWith('data:') ? '' : product.image;
+            document.getElementById('pSizes').value = Array.isArray(product.sizes) ? product.sizes.join(', ') : product.sizes;
+            document.getElementById('pStock').value = product.stock || 'in_stock';
+            document.getElementById('pDesc').value = product.desc;
+
+            // Preview image
+            uploadedBase64Image = product.image;
+            document.getElementById('imagePreview').src = product.image;
+            document.getElementById('imagePreviewContainer').classList.remove('hidden');
+
+            document.getElementById('btnSaveProduct').innerHTML = '<i data-lucide="check" class="w-4 h-4"></i><span>Update Product</span>';
+
+            switchAdminTab('addProductTab');
+        }
+
+        function deleteProduct(id) {
+            if (confirm("Are you sure you want to delete this item from your catalog?")) {
+                products = products.filter(p => p.id !== id);
+                saveProductsToStorage();
+                renderCategoryCounts();
+                renderProducts();
+                renderAdminInventory();
+                showToast("Item deleted from catalog.");
+            }
+        }
+
+        function resetToSampleProducts() {
+            if (confirm("Restore the default Turkish collection items? Any custom products will be overwritten.")) {
+                products = [...DEFAULT_PRODUCTS];
+                saveProductsToStorage();
+                renderCategoryCounts();
+                renderProducts();
+                renderAdminInventory();
+                showToast("Catalog restored to sample Turkish collection.");
+            }
+        }
+
+        // Settings
+        function saveWhatsAppNumber() {
+            const raw = document.getElementById('sellerWaNumber').value.replace(/[^0-9]/g, '');
+            if (!raw) {
+                alert("Please enter a valid phone number (digits only, e.g. 447700900077)");
+                return;
+            }
+            sellerWhatsApp = raw;
+            localStorage.setItem('bosphorus_wa_number', raw);
+            updateWhatsAppHeaderLink();
+            showToast(`WhatsApp recipient updated to +${raw}`);
+        }
+
+        function saveStoreSettings() {
+            const storeName = document.getElementById('settingStoreName').value;
+            showToast(`Store settings updated: ${storeName}`);
+        }
+
+        // JSON Backup / Export / Import for GitHub Pages
+        function exportCatalogJSON() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(products, null, 2));
+            const dlAnchorElem = document.createElement('a');
+            dlAnchorElem.setAttribute("href", dataStr);
+            dlAnchorElem.setAttribute("download", `bosphorus_catalog_backup_${new Date().toISOString().slice(0,10)}.json`);
+            dlAnchorElem.click();
+            showToast("Catalog JSON downloaded successfully!");
+        }
+
+        function copyCatalogToClipboard() {
+            const jsonText = JSON.stringify(products, null, 2);
+            navigator.clipboard.writeText(jsonText).then(() => {
+                showToast("JSON code copied to clipboard!");
+            });
+        }
+
+        function importCatalogJSON() {
+            const textarea = document.getElementById('importJsonTextarea');
+            try {
+                const parsed = JSON.parse(textarea.value.trim());
+                if (Array.isArray(parsed) && parsed.length > 0) {
+                    products = parsed;
+                    saveProductsToStorage();
+                    renderCategoryCounts();
+                    renderProducts();
+                    renderAdminInventory();
+                    textarea.value = '';
+                    showToast(`Successfully loaded ${parsed.length} products!`);
+                } else {
+                    alert("Invalid JSON format. Expected an array of products.");
+                }
+            } catch(e) {
+                alert("Could not parse JSON. Please check for syntax errors.");
+            }
+        }
+
+        // Mobile Nav Toggle
+        function toggleMobileNav() {
+            const nav = document.getElementById('mobileNavDrawer');
+            if (nav.classList.contains('-translate-x-full')) {
+                nav.classList.remove('-translate-x-full');
+            } else {
+                nav.classList.add('-translate-x-full');
+            }
+        }
+
+        // Search Modal / Input Focus
+        function toggleSearchModal() {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            searchInput.focus();
+        }
+
+        // Why Turkey Story modal
+        function openStoryModal() {
+            document.getElementById('storyModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeStoryModal() {
+            document.getElementById('storyModal').classList.add('hidden');
+        }
+
+        // Toast feedback
+        function showToast(message) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
